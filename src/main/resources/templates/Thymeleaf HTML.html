@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+    <h1>Unser Katalog</h1>
+    <table>
+        <tr th:each="disc : ${catalog}">
+            <td th:text="${disc.name}">Filmname</td>
+            <td th:text="${disc.price}">9.99 EUR</td>
+            <td>
+                <form method="post" th:action="@{/cart}">
+                    <input type="hidden" name="pid" th:value="${disc.id}" />
+                    <input type="number" name="number" value="1" />
+                    <button type="submit">In den Warenkorb</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
