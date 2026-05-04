@@ -2,10 +2,26 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
     <h1>Unser Katalog</h1>
+
+    <!-- VERBESSERUNG: Fehlermeldung anzeigen -->
+    <div th:if="${param.error}" style="color: red; font-weight: bold; border: 1px solid red; padding: 10px; margin-bottom: 20px;">
+        Zugriff verweigert: Dieser Film ist erst ab 18 Jahren freigegeben!
+    </div>
+
     <table>
+        <thead>
+            <tr>
+                <th>Titel</th>
+                <th>Preis</th>
+                <th>FSK</th> <!-- Neu: Spalte für das Alter -->
+                <th>Aktion</th>
+            </tr>
+        </thead>
         <tr th:each="disc : ${catalog}">
             <td th:text="${disc.name}">Filmname</td>
             <td th:text="${disc.price}">9.99 EUR</td>
+            <!-- VERBESSERUNG: Alter aus dem Model anzeigen -->
+            <td th:text="${disc.allowedAge}">0</td> 
             <td>
                 <form method="post" th:action="@{/cart}">
                     <input type="hidden" name="pid" th:value="${disc.id}" />
